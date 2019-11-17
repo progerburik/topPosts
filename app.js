@@ -6,7 +6,12 @@ formEl.className = 'form-inline';
 
 formEl.innerHTML = `
 <input type="text" class="form-control mb-2 mr-sm-2" data-id="url">
-<input type="text" class="form-control mb-2 mr-sm-2" data-id="name">
+<select class="form-control mb-2 mr-sm-2" data-id="name">
+    <option value="img">Картинка</option>
+    <option value="video">Видео</option>
+    <option value="audio">Аудио</option>
+    <option value="regular">Обычный</option>
+</select>
 <button class="btn btn-info mb-2" data-action="add">Добавить пост</button>
 `;
 const urlEl = formEl.querySelector('[data-id=url]');
@@ -44,7 +49,6 @@ function rebuildList(containerEl, items) {
         el.className = 'list-group-item';
         el.dataset.id = `post-${item.id}`;
         if (item.name === 'img') {
-            el.className = 'list-group-item';
             el.innerHTML = `
                 <img src="${item.url}" class="card">
                 ${item.name}
@@ -75,6 +79,9 @@ function rebuildList(containerEl, items) {
                 <button type="button" class="btn btn-success btn-sm" data-action="like">like</button>
                 <button type="button" class="btn btn-danger btn-sm" data-action="dislike">dislike</button>    
             `;
+        } else {
+            console.log('Ошибочное имя');
+            continue;
         }
         el.querySelector('[data-action=like]').addEventListener('click', (event) => {
             item.likes++;
